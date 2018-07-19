@@ -3,6 +3,11 @@
  */
 export class Edge {
   // !!! IMPLEMENT ME
+  // need to know start and end
+  constructor(destination, weight) {
+    this.destination = destination;
+    this.weight = 1;
+  }
 }
 
 /**
@@ -10,6 +15,11 @@ export class Edge {
  */
 export class Vertex {
   // !!! IMPLEMENT ME
+  constructor(value, pos = {x: -1, y: -1}) {
+    this.value = value;
+    this.edges = [];
+    this.pos = pos;
+  }
 }
 
 /**
@@ -111,6 +121,36 @@ export class Graph {
    */
   bfs(start) {
     // !!! IMPLEMENT ME
+    //  * Pick somewhere to start -> start at first vertex in the list and push it to the queue
+    let queue = [];
+    queue.push(start);
+
+    // current group is o to start
+
+    let currentGroup = 'red'; // Todo: start with a random color
+    while(queue.length > 0) {
+      //  * Our process
+      //  * 1. go to first item in queue
+      let current = queue[0];
+      //  * 2. explore where it connects in this vertex
+      for(edge in current.edges) {
+        
+        if(edge.destination.fillColor === 'white') {
+          // a. check edges in this node
+          queue.push(edge.destination);
+          // b. adding the destination to the bottom of the queue
+          edge.destination.fillColor = currentGroup;
+        }
+      }
+      //  *  c. Add the destination to our visited list
+    }
+
+    
+    //  * 3. remove the current node from queue
+    //  * 4. call our process for the next node 
+    //  *  A if the queue is empty, call for the next vertex in the list THAT IS UNVISTED if we dont have anywhere else to go (this means we start a new group)
+    //  *  B But if we do have somewhere to go, to the next one in the queue
+   
   }
 
   /**
@@ -120,3 +160,5 @@ export class Graph {
     // !!! IMPLEMENT ME
   }
 }
+
+
